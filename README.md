@@ -4,6 +4,6 @@
 Projeto feito em linguagem C.
 
 ## Integrantes
-- Weslley Romeu Rêgo
+- Weslley Romeu Rego
 - Camilla Victoria Ferreira Costa
 -
