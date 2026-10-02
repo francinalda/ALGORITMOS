@@ -1,3 +1,3 @@
+// Estoque lanchonete
 #includ <studio.h>
-printf("cardapio");
-scanf("%d" &lista);
+
