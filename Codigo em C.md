@@ -21,3 +21,15 @@ int main() {
 
     do {
 
+printf("\n===== ESTOQUE DA LANCHONETE =====\n");
+        printf("1 - Cadastrar\n");
+        printf("2 - Listar\n");
+        printf("3 - Modificar\n");
+        printf("4 - Apagar\n");
+        printf("5 - Estatisticas\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+
