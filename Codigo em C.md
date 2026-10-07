@@ -65,11 +65,22 @@ int main() {
                     scanf("%d", &posicao);
 
                     if (posicao >= 0 && posicao < total) {
-                        printf("Novo preco: ");
-                        scanf("%f", &precos[posicao]);
-                        printf("Nova quantidade: ");
-                        scanf("%d", &quantidades[posicao]);
-                        printf("Modificado com sucesso!\n");
+                        float novo_preco;
+                        int nova_quantidade;
+
+                        printf("Novo Preco: ");
+                        scanf("%f", &novo_preco);
+
+                        printf("Nova quantidade:");
+                        scanf("%d", &nova_quantidade);
+
+                        if (novo_preco > 0 && nova_quantidade >=0){
+                            precos[posicao] = novo_preco;
+                            quantidades[posicao]= nova_quantidade;
+                            printf("Modificado com sucesso!\n");
+                        } else {
+                            printf("Valores invalidos! Dados anteriores mantidos.\n");
+                        }
                     } else {
                         printf("Posicao invalida!\n");
                     }
