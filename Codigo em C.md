@@ -3,15 +3,17 @@
 
 #define TAM_MAX 10 // Define a capacidade maxima do estoque (evita numeros soltos no codigo)
 
-int main() {
+int main()
+{
     // Vetores inicializados diretamente com zero {0}
-    float precos[TAM_MAX] = {0};       // Preco de cada salgado
-    int quantidades[TAM_MAX] = {0};    // Quantidade de cada salgado
-    
-    int total = 0;   // Contador de salgados cadastrados
-    int opcao = -1;  // Armazena a escolha do menu
+    float precos[TAM_MAX] = {0};    // Preco de cada salgado
+    int quantidades[TAM_MAX] = {0}; // Quantidade de cada salgado
 
-    do {
+    int total = 0;  // Contador de salgados cadastrados
+    int opcao = -1; // Armazena a escolha do menu
+
+    do
+    {
         // Exibicao do Menu
         printf("\n===== ESTOQUE DA LANCHONETE =====\n");
         printf("1 - Cadastrar\n");
@@ -23,128 +25,201 @@ int main() {
         printf("Escolha: ");
         scanf("%d", &opcao);
 
-        switch (opcao) {
+        switch (opcao)
+        {
 
-            case 1: // CADASTRAR
-                if (total < TAM_MAX) {
-                    printf("Preco: ");
-                    scanf("%f", &precos[total]);
-                    printf("Quantidade: ");
-                    scanf("%d", &quantidades[total]);
+        case 1: // CADASTRAR
+            if (total < TAM_MAX)
+            {
+                printf("Preco: ");
+                scanf("%f", &precos[total]);
+                printf("Quantidade: ");
+                scanf("%d", &quantidades[total]);
 
-                    // Valida entradas invalidas
-                    if (precos[total] > 0 && quantidades[total] >= 0) {
-                        total++; // Incrementa 1 ao total
-                        printf("Cadastrado com sucesso!\n");
-                    } else {
-                        printf("Valores invalidos! Preco deve ser positivo.\n");
-                    }
-                } else {
-                    printf("Estoque cheio!\n");
+                // Valida entradas invalidas
+                if (precos[total] > 0 && quantidades[total] >= 0)
+                {
+                    total++; // Incrementa 1 ao total
+                    printf("Cadastrado com sucesso!\n");
                 }
-                break;
-
-            case 2: // LISTAR
-                if (total == 0) {
-                    printf("Nada cadastrado.\n");
-                } else {
-                    printf("\n--- ITENS CADASTRADOS ---\n");
-                    // O 'for' executa do indice 0 ate (total - 1)
-                    for (int i = 0; i < total; i++) {
-                        printf("Posicao [%d] -> R$ %.2f | Qtd: %d\n", i, precos[i], quantidades[i]);
-                    }
+                else
+                {
+                    printf("Valores invalidos! Preco deve ser positivo.\n");
                 }
-                break;
+            }
+            else
+            {
+                printf("Estoque cheio!\n");
+            }
+            break;
 
-            case 3: // MODIFICAR
-                if (total == 0) {
-                    printf("Nada para modificar.\n");
-                } else {
-                    int posicao;
-                    printf("Posicao (0 a %d): ", total - 1);
-                    scanf("%d", &posicao);
+        case 2: // LISTAR
+            if (total == 0)
+            {
+                printf("Nada cadastrado.\n");
+            }
+            else
+            {
+                printf("\n--- ITENS CADASTRADOS ---\n");
+                // O 'for' executa do indice 0 ate (total - 1)
+                for (int i = 0; i < total; i++)
+                {
+                    printf("Posicao [%d] -> R$ %.2f | Qtd: %d\n", i, precos[i], quantidades[i]);
+                }
+            }
+            break;
 
-                    if (posicao >= 0 && posicao < total) {
-                        float novo_preco;
-                        int nova_quantidade;
+        case 3: // MODIFICAR
+            if (total == 0)
+            {
+                printf("Nada para modificar.\n");
+            }
+            else
+            {
+                int posicao;
+                printf("Posicao (0 a %d): ", total - 1);
+                scanf("%d", &posicao);
 
-                        printf("Novo Preco: ");
-                        scanf("%f", &novo_preco);
+                if (posicao >= 0 && posicao < total)
+                {
+                    float novo_preco;
+                    int nova_quantidade;
 
-                        printf("Nova quantidade:");
-                        scanf("%d", &nova_quantidade);
+                    int leitura;
+                    int caractere;
 
-                        if (novo_preco > 0 && nova_quantidade >=0){
-                            precos[posicao] = novo_preco;
-                            quantidades[posicao]= nova_quantidade;
-                            printf("Modificado com sucesso!\n");
-                        } else {
-                            printf("Valores invalidos! Dados anteriores mantidos.\n");
+                    do
+                    {
+                        printf("Novo preco:");
+                        leitura = scanf("%f", &novo_preco);
+
+                        if (leitura == EOF)
+                        {
+                            return 0;
                         }
-                    } else {
-                        printf("Posicao invalida!\n");
-                    }
-                }
-                break;
+                        if (leitura != 1)
+                        {
+                            printf("Entrada invalida! Digite um numero.\n");
 
-            case 4: // APAGAR
-                if (total == 0) {
-                    printf("Nada para apagar.\n");
-                } else {
-                    int posicao;
-                    printf("Posicao (0 a %d): ", total - 1);
-                    scanf("%d", &posicao);
-
-                    if (posicao >= 0 && posicao < total) {
-                        // Reorganiza o vetor deslocando os elementos para a esquerda
-                        for (int i = posicao; i < total - 1; i++) {
-                            precos[i] = precos[i + 1];
-                            quantidades[i] = quantidades[i + 1];
+                            while ((caractere = getchar()) != '\n' && caractere != EOF)
+                            {
+                                /*descarta a entrada inválida*/
+                            }
                         }
-                        total--; // Reduz a contagem total
-                        printf("Apagado com sucesso!\n");
-                    } else {
-                        printf("Posicao invalida!\n");
-                    }
-                }
-                break;
+                    } while (leitura != 1);
 
-            case 5: // ESTATISTICAS
-                if (total == 0) {
-                    printf("Sem dados.\n");
-                } else {
-                    float soma_precos = 0;
-                    float valor_total = 0;
-                    int estoque_baixo = 0;
+                    do
+                    {
+                        printf("Nova quantidade: ");
+                        leitura = scanf("%d", &nova_quantidade);
 
-                    // Calcula totais em um unico laco
-                    for (int i = 0; i < total; i++) {
-                        soma_precos += precos[i];
-                        valor_total += precos[i] * quantidades[i];
-
-                        if (quantidades[i] < 5) {
-                            estoque_baixo = 1;
+                        if (leitura == EOF)
+                        {
+                            return 0;
                         }
+
+                        if (leitura != 1)
+                        {
+                            printf("Entrada invalida! Digite um numero inteiro.\n");
+
+                            while ((caractere = getchar()) != '\n' && caractere != EOF)
+                            {
+                                /* Descarta a entrada invalida. */
+                            }
+                        }
+                    } while (leitura != 1);
+
+                    if (novo_preco > 0 && nova_quantidade >= 0)
+                    {
+                        precos[posicao] = novo_preco;
+                        quantidades[posicao] = nova_quantidade;
+                        printf("Modificado com sucesso!\n");
                     }
-
-                    printf("\n--- ESTATISTICAS ---\n");
-                    printf("Media de precos: R$ %.2f\n", soma_precos / total);
-                    printf("Valor total em estoque: R$ %.2f\n", valor_total);
-
-                    if (estoque_baixo) {
-                        printf("ATENCAO: Existem itens com estoque baixo (menos de 5 units)!\n");
-                    } else {
-                        printf("Estoque normal.\n");
+                    else
+                    {
+                        printf("Valores invalidos! Dados anteriores mantidos.\n");
                     }
                 }
-                break;
+                else
+                {
+                    printf("Posicao invalida!\n");
+                }
+            }
+            break;
 
-            case 0:
-                printf("Saindo...\n");
-                break;
+        case 4: // APAGAR
+            if (total == 0)
+            {
+                printf("Nada para apagar.\n");
+            }
+            else
+            {
+                int posicao;
+                printf("Posicao (0 a %d): ", total - 1);
+                scanf("%d", &posicao);
 
-            default:
-                printf("Opcao invalida!\n");
+                if (posicao >= 0 && posicao < total)
+                {
+                    // Reorganiza o vetor deslocando os elementos para a esquerda
+                    for (int i = posicao; i < total - 1; i++)
+                    {
+                        precos[i] = precos[i + 1];
+                        quantidades[i] = quantidades[i + 1];
+                    }
+                    total--; // Reduz a contagem total
+                    printf("Apagado com sucesso!\n");
+                }
+                else
+                {
+                    printf("Posicao invalida!\n");
+                }
+            }
+            break;
+
+        case 5: // ESTATISTICAS
+            if (total == 0)
+            {
+                printf("Sem dados.\n");
+            }
+            else
+            {
+                float soma_precos = 0;
+                float valor_total = 0;
+                int estoque_baixo = 0;
+
+                // Calcula totais em um unico laco
+                for (int i = 0; i < total; i++)
+                {
+                    soma_precos += precos[i];
+                    valor_total += precos[i] * quantidades[i];
+
+                    if (quantidades[i] < 5)
+                    {
+                        estoque_baixo = 1;
+                    }
+                }
+
+                printf("\n--- ESTATISTICAS ---\n");
+                printf("Media de precos: R$ %.2f\n", soma_precos / total);
+                printf("Valor total em estoque: R$ %.2f\n", valor_total);
+
+                if (estoque_baixo)
+                {
+                    printf("ATENCAO: Existem itens com estoque baixo (menos de 5 units)!\n");
+                }
+                else
+                {
+                    printf("Estoque normal.\n");
+                }
+            }
+            break;
+
+        case 0:
+            printf("Saindo...\n");
+            break;
+
+        default:
+            printf("Opcao invalida!\n");
         }
 
     } while (opcao != 0);
